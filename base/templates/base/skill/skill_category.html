@@ -1,0 +1,58 @@
+<!-- skills/category_list.html -->
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Skill Categories</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {% for category in object_list %}
+        <a href="{% url 'skill_category_detail' category.slug %}" class="group block">
+            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 h-full">
+                <!-- Icon Container -->
+                <div class="w-16 h-16 mx-auto mb-4 text-blue-600 group-hover:text-blue-700 transition-colors">
+                    {% if category.icon|slice:":5" == "<path" %}
+                    <svg class="w-full h-full" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        {{ category.icon|safe }}
+                    </svg>
+                    {% else %}
+                    <i class="{{ category.icon }} w-full h-full text-4xl flex items-center justify-center"></i>
+                    {% endif %}
+                </div>
+
+                <!-- Category Name -->
+                <h2 class="text-xl font-semibold text-gray-800 text-center mb-2 group-hover:text-blue-600 transition-colors">
+                    {{ category.name }}
+                </h2>
+
+                <!-- View More (Optional) -->
+                <div class="text-center mt-4">
+                    <span class="text-sm text-blue-600 group-hover:text-blue-700 transition-colors">
+                        View Skills →
+                    </span>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <div class="mt-8 flex justify-center">
+        <div class="flex space-x-2">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
+                Previous
+            </a>
+            {% endif %}
+
+            <span class="px-4 py-2 bg-blue-600 text-white rounded-lg">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
+                Next
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>

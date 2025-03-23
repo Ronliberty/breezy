@@ -1,0 +1,85 @@
+<!-- base/partials/projects.html -->
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-gray-800 mb-8 text-center">Featured Projects</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for project in projects %}
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <!-- Project Image -->
+            <img
+                src="{{ project.image.url }}"
+                alt="{{ project.title }}"
+                class="w-full h-48 object-cover"
+                loading="lazy"
+            >
+
+            <!-- Project Content -->
+            <div class="p-6">
+                <!-- Featured Badge -->
+                {% if project.is_featured %}
+                <span class="inline-block bg-yellow-400 text-xs font-bold px-2 py-1 rounded-full mb-2">
+                    Featured
+                </span>
+                {% endif %}
+
+                <!-- Title and Date -->
+                <h2 class="text-xl font-bold text-gray-800 mb-2">{{ project.title }}</h2>
+                <p class="text-sm text-gray-500 mb-4">
+                    {{ project.date|date:"F Y" }}
+                </p>
+
+                <!-- Tags -->
+                <div class="flex flex-wrap gap-2 mb-4">
+                    {% for tag in project.tags.all %}
+                    <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                        {{ tag.name }}
+                    </span>
+                    {% endfor %}
+                </div>
+
+                <!-- Description -->
+                <p class="text-gray-600 mb-4 line-clamp-3">
+                    {{ project.description }}
+                </p>
+
+                <!-- Project Link -->
+                {% if project.project_url %}
+                <a
+                    href="{{ project.project_url }}"
+                    target="_blank"
+                    class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+                >
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                    View Project
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <div class="mt-8 flex justify-center">
+        <div class="flex space-x-2">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
+                Previous
+            </a>
+            {% endif %}
+
+            <span class="px-4 py-2 bg-blue-600 text-white rounded-lg">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300">
+                Next
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>

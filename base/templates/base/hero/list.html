@@ -1,0 +1,17 @@
+
+    <h1 class="text-xl font-bold mb-4">Hero Content</h1>
+
+    <button hx-get="{% url 'base:hero_create' %}" 
+            hx-target="#content-container" 
+            hx-swap="innerHTML"
+            class="bg-blue-500 text-white px-4 py-2 rounded">
+        Add Hero Content
+    </button>
+
+    <div id="hero-list">
+        {% for hero in heroes %}
+            {% include "base/partials/hero_item.html" %}
+        {% empty %}
+            <p>No hero content available.</p>
+        {% endfor %}
+    </div>

@@ -1,0 +1,9 @@
+<div class="p-4 bg-white rounded shadow">
+    <p>Are you sure you want to delete "{{ hero.name }}"?</p>
+    <button hx-delete="{% url 'base:hero_delete' hero.slug %}"
+            hx-target="#hero-{{ hero.id }}"
+            hx-swap="outerHTML"
+            class="bg-red-500 text-white px-4 py-2 rounded mt-2">
+        Confirm Delete
+    </button>
+</div>

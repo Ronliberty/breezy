@@ -1,0 +1,67 @@
+{% load static %}
+
+<div class="container mx-auto px-4 mt-8">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-900">Skills List</h1>
+
+        <!-- Add Skill Button -->
+     <div id="content-container">
+    <a href=""
+       class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2"
+       hx-get="{% url 'base:skill_create' %}"
+       hx-target="#content-container"
+       hx-swap="innerHTML">
+        + Add Skill
+    </a>
+</div>
+
+
+    {% if skills %}
+    <div class="overflow-x-auto rounded-lg shadow">
+        <table class="w-full text-sm text-left text-gray-500">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3">Category</th>
+                    <th class="px-6 py-3">Name</th>
+                    <th class="px-6 py-3">Slug</th>
+                    <th class="px-6 py-3">Proficiency</th>
+                    <th class="px-6 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for skill in skills %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ skill.category.name }}</td>
+                    <td class="px-6 py-4">{{ skill.name }}</td>
+                    <td class="px-6 py-4 text-gray-500">{{ skill.slug }}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                            {% if skill.proficiency >= 75 %} bg-green-100 text-green-800 
+                            {% elif skill.proficiency >= 50 %} bg-yellow-100 text-yellow-800 
+                            {% else %} bg-red-100 text-red-800 {% endif %}">
+                            {{ skill.proficiency }}%
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 space-x-2">
+                        <a href="" class="text-white bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-md text-sm">
+                            Edit
+                        </a>
+                        <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                        hx-delete="{% url 'base:skill_delete' skill.slug %}"
+                        hx-confirm="Are you sure you want to delete {{ skill.name }}?"
+                        hx-target="#content-container"
+                        hx-swap="innerHTML">
+                    Delete
+                </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="text-center p-8 bg-white rounded-lg shadow">
+        <p class="text-gray-600">No skills available.</p>
+    </div>
+    {% endif %}
+</div>

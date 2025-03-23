@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bms</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <link rel="icon" href="https://img.icons8.com/small/64/ffffff/fire-heart.png" type="image/png">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    {% block extra_css %}{% endblock %}
+</head>
+<body x-data="{ sidebarOpen: false }">
+    <header class="bg-gray-800 p-4 flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+            <img src="https://img.icons8.com/small/64/ffffff/fire-heart.png" alt="Logo" class="h-10 w-10">
+            <div class="text-white text-lg font-semibold">BMS</div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="" class="text-gray-300 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+            </a>
+            <div class="relative" x-data="{ open: false }">
+                <button @click="open = !open" class="text-gray-300 hover:text-white focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+                <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+                    <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Option 1</a>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Option 2</a>
+                </div>
+            </div>
+            <div class="relative" x-data="{ open: false }">
+                <img src="https://img.icons8.com/doodle/96/null/bart-simpson.png" alt="Profile" class="h-10 w-10 rounded-full cursor-pointer" @click="open = !open">
+                <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+
+                    <a href="" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="flex">
+        <div class="p-4">
+            <button @click="sidebarOpen = !sidebarOpen" class="text-gray-700 hover:text-gray-900 focus:outline-none mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <nav :class="sidebarOpen ? 'block' : 'hidden'" class="p-4 w-64 min-h-screen bg-gray-100 shadow-md" id="sidebar">
+            <button @click="sidebarOpen = false" class="text-gray-700 hover:text-gray-900 focus:outline-none mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <ul class="space-y-4 p-4 bg-gray-100 rounded-lg shadow-md"> <!-- Increased vertical spacing -->
+                <li>
+                    <a href="{% url 'dashboard:manager_dashboard' %}" class="flex items-center text-gray-700 hover:text-gray-900 gap-4"> <!-- Added gap -->
+                        <i class='bx bx-home text-2xl'></i>
+                        Home
+                    </a>
+                </li>
+               <!-- Sidebar in base.html -->
+                <li>
+                  <a href=""
+                     class="flex items-center text-gray-700 hover:text-gray-900 gap-4"
+                     hx-get="{% url 'base:hero_list' %}"
+                     hx-target="#content-container"
+                     hx-trigger="click"
+                     hx-push-url="true"> <!-- Updates the browser URL -->
+                    <i class='bx bx-news text-2xl'></i>
+                    Hero
+                  </a>
+                </li>
+
+                <li>
+                    <a href=""
+                    class="flex items-center text-gray-700 hover:text-gray-900 gap-4"
+
+                     hx-get="{% url 'base:project_list' %}"
+                     hx-target="#content-container"
+                     hx-trigger="click"
+                     hx-push-url="true">
+                        <i class='bx bx-list-check text-2xl'></i>
+                        Projects
+                    </a>
+                </li>
+                <li>
+                    <a href=""
+                       class="flex items-center text-gray-700 hover:text-gray-900 gap-4"
+                        hx-get="{% url 'base:skills_list' %}"
+                         hx-target="#content-container"
+                         hx-trigger="click"
+                         hx-push-url="true">
+                            <i class='bx bx-briefcase text-2xl'></i>
+                        skills
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="flex items-center text-gray-700 hover:text-gray-900 gap-4"
+                       hx-get="{% url 'base:contactsubmission-list' %}"
+                         hx-target="#content-container"
+                         hx-trigger="click"
+                         hx-push-url="true">
+                        <i class='bx bx-comment-detail text-2xl'></i>
+                        Submissions
+
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="flex items-center text-gray-700 hover:text-gray-900 gap-4"
+                       hx-get="{% url 'base:contact_info_list' %}"
+                         hx-target="#content-container"
+                         hx-trigger="click"
+                         hx-push-url="true">
+                        <i class='bx bx-envelope text-2xl'></i>
+                        contact
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="flex items-center text-gray-700 hover:text-gray-900 gap-4"
+                       hx-get="{% url 'base:social_list' %}"
+                         hx-target="#content-container"
+                         hx-trigger="click"
+                         hx-push-url="true">
+                        <i class='bx bx-share-alt text-2xl'></i>
+                        Socials
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{% url 'logout' %}" class="flex items-center text-gray-700 hover:text-gray-900 gap-4">
+                        <i class='bx bx-log-out text-2xl'></i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
+        <main class="flex-1 ">
+
+                {% block content %}
+
+                         {% endblock %}
+
+        </main>
+    </div>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.getElementById('sidebar');
+    const sidebarItems = document.querySelectorAll('#sidebar a');
+    const mobileBreakpoint = 768; // Standard mobile breakpoint
+
+    // Function to check mobile view
+    function isMobile() {
+        return window.innerWidth < mobileBreakpoint;
+    }
+
+    // Function to close sidebar
+    function closeSidebar() {
+        if (isMobile()) {
+            sidebarOpen = false; // Update your state management here
+            sidebar.classList.add('hidden');
+            sidebar.classList.remove('block');
+        }
+    }
+
+    // Close when clicking menu items
+    sidebarItems.forEach(item => {
+        item.addEventListener('click', closeSidebar);
+    });
+
+    // Close when clicking anywhere in the sidebar (except the close button)
+    sidebar.addEventListener('click', function(event) {
+        if (!event.target.closest('button')) { // Exclude close button
+            closeSidebar();
+        }
+    });
+
+    // Optional: Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+        if (isMobile() && !sidebar.contains(event.target)) {
+            closeSidebar();
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        if (!isMobile()) {
+            // Optional: Re-open sidebar when resizing to desktop
+            sidebarOpen = true;
+            sidebar.classList.remove('hidden');
+            sidebar.classList.add('block');
+        }
+    });
+});
+    </script>
+</body>
+</html>

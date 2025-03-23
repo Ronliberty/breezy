@@ -1,0 +1,33 @@
+<div id="content-container" class="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md mt-8">
+    <h2 class="text-2xl font-bold mb-4">{% if object %}Edit{% else %}Create{% endif %} Contact Info</h2>
+
+    <form method="post" hx-post="{% if object %}{% url 'base:contact_info_update' object.slug %}{% else %}{% url 'base:contact_info_create' %}{% endif %}" hx-target="#content-container">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label class="block text-gray-700">Email:</label>
+            {{ form.email }}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Phone:</label>
+            {{ form.phone }}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Address:</label>
+            {{ form.address }}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Active:</label>
+            {{ form.is_active }}
+        </div>
+        <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md">
+            Save
+        </button>
+        <a href=""
+           class="ml-3 text-gray-700 hover:underline"
+           hx-get="{% url 'base:contact_info_list' %}"
+           hx-target="#content-container"
+           hx-swap="innerHTML">
+            Cancel
+        </a>
+    </form>
+</div>

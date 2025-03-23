@@ -1,0 +1,22 @@
+<div class="container mx-auto p-4">
+    <div class="p-4 border rounded-lg shadow-md bg-white">
+        <h2 class="text-xl font-bold mb-4">Delete Project</h2>
+        <p>Are you sure you want to delete <strong>{{ project.title }}</strong>?</p>
+
+        <div class="mt-4">
+            <button hx-delete="{% url 'base:project_delete' project.slug %}"
+                    hx-target="#content-container"
+                    hx-swap="innerHTML"
+                    class="bg-red-500 text-white px-4 py-2 rounded">
+                Yes, Delete
+            </button>
+
+            <button hx-get="{% url 'base:project_list' %}"
+                    hx-target="#content-container"
+                    hx-swap="innerHTML"
+                    class="bg-gray-500 text-white px-4 py-2 rounded">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
