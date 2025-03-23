@@ -1,0 +1,25 @@
+<div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-6 relative pb-8">
+            Featured Projects
+            <span class="absolute bottom-0 left-1/2 w-16 h-1 bg-blue-600 transform -translate-x-1/2"></span>
+        </h2>
+
+        <div class="flex flex-wrap justify-center gap-3 mb-12" x-data="{ selectedTag: 'all' }">
+            <!-- Filter buttons same as before -->
+        </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10"
+         x-data="{ projects: {{ projects_json|safe }} }">
+        <!-- Project items same as before, using Django template tags -->
+        {% for project in projects %}
+        <article class="...">
+            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.description }}</p>
+            <!-- ... -->
+        </article>
+        {% endfor %}
+    </div>
+</div>

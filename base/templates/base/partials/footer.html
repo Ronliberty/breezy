@@ -1,0 +1,10 @@
+<div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
+        <!-- Social links using SocialLink model -->
+        {% for link in social_links %}
+        <a href="{{ link.url }}" class="...">
+            {{ link.icon|safe }}
+        </a>
+        {% endfor %}
+    </div>
+</div>

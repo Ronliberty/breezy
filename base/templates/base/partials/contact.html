@@ -1,0 +1,7 @@
+<div class="max-w-2xl mx-auto">
+    <!-- Contact form and info using ContactInfo model -->
+    {% with contact=contact_info %}
+    <p class="font-medium">{{ contact.email }}</p>
+    <p class="font-medium">{{ contact.phone }}</p>
+    {% endwith %}
+</div>

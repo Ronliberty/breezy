@@ -1,0 +1,26 @@
+<form hx-post="{{ request.path }}" class="space-y-6">
+    {% csrf_token %}
+    <div class="space-y-4">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Name</label>
+            {{ form.name }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Subtitle</label>
+            {{ form.subtitle }}
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">CTA Text</label>
+                {{ form.cta_text }}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">CTA Link</label>
+                {{ form.cta_link }}
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn-primary">
+        Save Changes
+    </button>
+</form>
